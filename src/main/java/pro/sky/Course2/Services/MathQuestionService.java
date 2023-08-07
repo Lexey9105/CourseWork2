@@ -1,28 +1,23 @@
 package pro.sky.Course2.Services;
 
-
 import org.junit.platform.commons.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import pro.sky.Course2.Exceptions.AlreadyAddException;
 import pro.sky.Course2.Exceptions.EmptyRequestException;
 import pro.sky.Course2.Question;
 import pro.sky.Course2.Repository.JavaQuestionRepository;
+import pro.sky.Course2.Repository.MathQuestionRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
 
 @Service
-@Qualifier("JavaQuestionService")
-public class JavaQuestionService implements QuestionService {
+@Qualifier("MathQuestionService")
+public class MathQuestionService implements QuestionService {
+    private final MathQuestionRepository mathQuestionRepository;
 
-    private final JavaQuestionRepository javaQuestionRepository;
 
-
-    public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
-        this.javaQuestionRepository = javaQuestionRepository;
+    public MathQuestionService(MathQuestionRepository mathQuestionRepository) {
+        this.mathQuestionRepository = mathQuestionRepository;
     }
 
     @Override
@@ -32,7 +27,7 @@ public class JavaQuestionService implements QuestionService {
         }
         Question question = new Question(query, answer);
 
-        javaQuestionRepository.add(question);
+        mathQuestionRepository.add(question);
         return question;
     }
 
@@ -41,29 +36,29 @@ public class JavaQuestionService implements QuestionService {
         if (StringUtils.isBlank(question.getQuery()) == true || StringUtils.isBlank(question.getAnswer()) == true) {
             throw new EmptyRequestException();
         }
-        javaQuestionRepository.add(question);
+        mathQuestionRepository.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
-        javaQuestionRepository.remove(question);
+        mathQuestionRepository.remove(question);
         return question;
     }
 
     @Override
     public Collection<Question> getAll() {
-        return javaQuestionRepository.getAll();
+        return mathQuestionRepository.getAll();
     }
 
     public int getSize() {
-        return javaQuestionRepository.getSize();
+        return mathQuestionRepository.getSize();
     }
 
     @Override
     public Question getRandomQuestion() {
 
-        return javaQuestionRepository.getRandomQuestion();
+        return mathQuestionRepository.getRandomQuestion();
     }
 
 

@@ -13,12 +13,13 @@ public class ExamController {
 
     private final ExaminerService examinerService;
 
-    public ExamController(ExaminerService examinerService){
-        this.examinerService=examinerService;
+    public ExamController(ExaminerService examinerService) {
+        this.examinerService = examinerService;
     }
+
     @GetMapping("/get")
-public Collection<Question>getQuestions(@RequestParam int amount){
+    public Collection<Question> getQuestions(@RequestParam int amount) {
         return examinerService.getQuestions(amount);
-}
+    }
 
 }
