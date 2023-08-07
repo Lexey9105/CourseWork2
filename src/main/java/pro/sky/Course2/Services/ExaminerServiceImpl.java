@@ -1,32 +1,34 @@
 package pro.sky.Course2.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pro.sky.Course2.Exceptions.EmptyRequestException;
 import pro.sky.Course2.Question;
+import pro.sky.Course2.Repository.JavaQuestionRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
+
+
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService{
 
-    private final JavaQuestionService javaQuestionService;
-    private final MathQuestionService mathQuestionService;
+   // private final JavaQuestionService javaQuestionService;
+    //private final MathQuestionService mathQuestionService;
+   private final JavaQuestionRepository javaQuestionRepository;
     private final Random random;
 
     @Autowired
-    public ExaminerServiceImpl(final JavaQuestionService javaQuestionService,
-                               final MathQuestionService mathQuestionService) {
-        this.javaQuestionService = javaQuestionService;
-        this.mathQuestionService = mathQuestionService;
+    public ExaminerServiceImpl(JavaQuestionRepository javaQuestionRepository) {
+        this.javaQuestionRepository=javaQuestionRepository;
         this.random = new Random();
     }
 
     private int maxQuestionsNumber() {
-        return mathQuestionService.getSize() + javaQuestionService.getSize();
+        return javaQuestionRepository.getSize();
     }
 
     private int randomGenerator() {
@@ -40,10 +42,10 @@ public class ExaminerServiceImpl implements ExaminerService{
         }
         ArrayList<Question> examQuestions=new ArrayList<>();
         while (examQuestions.size() < amount) {
-            if (randomGenerator() > 0 && javaQuestionService.getSize() > 0) {
-                examQuestions.add(javaQuestionService.getRandomQuestion());
-            } else if (mathQuestionService.getSize() > 0) {
-                examQuestions.add(mathQuestionService.getRandomQuestion());
+            if (randomGenerator() > 0 && javaQuestionRepository.getSize() > 0) {
+                examQuestions.add(javaQuestionRepository.getRandomQuestionJava());
+            } else if (javaQuestionRepository.getSize() > 0) {
+                examQuestions.add(javaQuestionRepository.getRandomQuestionMath());
             }
         }
 

@@ -87,7 +87,7 @@ Question question = new Question(add1, add2);
     public void removeTestException() {
         Question question1 = new Question(add2, add1);
         questionRepository.add(question);
-        assertThrows(EmptyRequestException.class, () -> {
+        assertThrows(AlreadyAddException.class, () -> {
             questionRepository.remove(question1);
         });
     }
@@ -101,9 +101,6 @@ Question question = new Question(add1, add2);
         test.add(question1);
         assertIterableEquals(test, questionRepository.getAll());
     }
-
-
-
 
 }
 

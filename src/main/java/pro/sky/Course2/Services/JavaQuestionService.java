@@ -56,15 +56,13 @@ public class JavaQuestionService implements QuestionService {
         return javaQuestionRepository.getAll();
     }
 
-    public int getSize() {
-        return javaQuestionRepository.getSize();
-    }
+
 
     @Override
     public Question getRandomQuestion() {
 
-        return javaQuestionRepository.getRandomQuestion();
+        return javaQuestionRepository.getRandomQuestionJava();
     }
-
+    public int getSize() {return 0;}
 
 }
