@@ -43,9 +43,13 @@ public class ExaminerServiceImpl implements ExaminerService{
         ArrayList<Question> examQuestions=new ArrayList<>();
         while (examQuestions.size() < amount) {
             if (randomGenerator() > 0 && javaQuestionRepository.getSize() > 0) {
-                examQuestions.add(javaQuestionRepository.getRandomQuestionJava());
+                Question question=javaQuestionRepository.getRandomQuestionJava();
+                if (!examQuestions.contains(question)){
+                examQuestions.add(question);}
             } else if (javaQuestionRepository.getSize() > 0) {
-                examQuestions.add(javaQuestionRepository.getRandomQuestionMath());
+                Question question=javaQuestionRepository.getRandomQuestionMath();
+                if (!examQuestions.contains(question)){
+                examQuestions.add(question);}
             }
         }
 

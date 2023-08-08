@@ -1,6 +1,6 @@
 package pro.sky.Course2.Repository;
 
-import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import pro.sky.Course2.Exceptions.AlreadyAddException;
@@ -78,12 +78,15 @@ public class JavaQuestionRepository implements QuestionRepository{
         String answer=Integer.toString(c);
         Question question=new Question(query,answer);
         questionsMath.add(question);}
+
+
     public Question getRandomQuestionJava() {
         Random random=new Random();
         int n= random.nextInt(questions.size());
 
         return questions.get(n);
     }
+
     public Question getRandomQuestionMath() {
         Random random=new Random();
         int n= random.nextInt(questions.size());

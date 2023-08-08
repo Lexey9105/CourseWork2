@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pro.sky.Course2.Exceptions.AddException;
 import pro.sky.Course2.Exceptions.EmptyRequestException;
 import pro.sky.Course2.Repository.JavaQuestionRepository;
 import pro.sky.Course2.Services.MathQuestionService;
@@ -41,29 +42,37 @@ public class MathQuestionServiceTest {
         );
     }
 
-    public static Stream<Arguments> paramsForTest2() {
-        return Stream.of(
-                Arguments.of("",""),
-                Arguments.of(" ", " "),
-                Arguments.of(null, null)
-        );
-    }
+    //public static Stream<Arguments> paramsForTest2() {
+       // return Stream.of(
+                //Arguments.of("",""),
+               // Arguments.of(" ", " "),
+                //Arguments.of(null, null)
+        //);
+   // }
 
 
 
-    @Test
-    public void addTest() {
-        Question question1 = new Question(add1, add2);
-        when(javaQuestionRepository.add(question)).thenReturn(question);
-        assertEquals(question, out.add(add1, add2));
-    }
+    //@Test
+    //public void addTest() {
+       // Question question1 = new Question(add1, add2);
+        //when(javaQuestionRepository.add(question)).thenReturn(question);
+        //assertEquals(question, out.add(add1, add2));
+    //}
 
 
     @ParameterizedTest
-    @MethodSource("paramsForTest2")
+    @MethodSource("paramsForTest1")
     public void addTestException(String query, String answer) {
-        assertThrows(EmptyRequestException.class, () -> {
+        assertThrows(AddException.class, () -> {
             out.add(query, answer);
+        });
+    }
+
+    @Test
+    public void removeTestException() {
+        Question question1 = new Question(add1, add2);
+        assertThrows(AddException.class, () -> {
+            out.remove(question1);
         });
     }
 
@@ -71,18 +80,11 @@ public class MathQuestionServiceTest {
 
 
 
-
-
-    @ParameterizedTest
-    @MethodSource("paramsForTest1")
-    public void getAllTest(String query, String answer) {
-        Question question = new Question(query, answer);
-        ArrayList<Question> test=new ArrayList<>();
-        test.add(question);
-        when(javaQuestionRepository.getAll()).thenReturn(test);
-        out.add(query, answer);
-
-        assertIterableEquals(test, out.getAll());
+    @Test
+    public void getAllTestException() {
+        assertThrows(AddException.class, () -> {
+            out.getAll();
+        });
     }
 
 
